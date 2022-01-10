@@ -1,0 +1,12 @@
+{% include "messages_reader.html" %}
+
+{% if user.is_authenticated %}
+<h3>Hello {{fname}}!</h3>
+<h4>You're successfully logged in.</h4>
+<button type="button"><a href="/chats/logout">Log out</a></button>
+{% else %}
+<button type="button"><a href="/chats/register">Register</a></button>
+<br/>
+<br/>
+<button type="button"><a href="/chats/login">Log in</a></button>
+{% endif %}

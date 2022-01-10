@@ -1,0 +1,10 @@
+{% include "messages_reader.html" %}
+
+<form action="/chats/login" method="post">
+{% csrf_token %}
+  <label for="usrname">Username:</label><br>
+  <input type="text" id="usrname" name="usrname" required><br>
+  <label for="pass">Password:</label><br>
+  <input type="password" id="pass" name="pass" required><br><br>
+  <button type="submit">Login</button>
+</form>

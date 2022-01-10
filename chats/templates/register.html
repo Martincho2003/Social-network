@@ -1,0 +1,23 @@
+{% include "messages_reader.html" %}
+
+<form action="/chats/register" method="post">
+  {% csrf_token %}
+    <label for="usrname">Username:</label><br>
+    <input type="text" id="usrname" name="usrname" required><br>
+
+    <label for="fname">First name:</label><br>
+    <input type="text" id="fname" name="fname" required><br>
+
+    <label for="lname">Last name:</label><br>
+    <input type="text" id="lname" name="lname" required><br>
+
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email" required><br>
+
+    <label for="pass1">Password:</label><br>
+    <input type="password" id="pass1" name="pass1" required><br>
+
+    <label for="pass2">Confirm password:</label><br>
+    <input type="password" id="pass2" name="pass2" required><br><br>
+    <button type="submit">Register</button>
+  </form>
