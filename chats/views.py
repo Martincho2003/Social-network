@@ -3,9 +3,22 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout
+from chats.models import Chat
 
 
 def index(request):
+    if not request.user.is_anonymous:
+        current_user = request.user
+
+        rooms = Chat.objects.filter(chat_owner = current_user.id)
+
+        if type(rooms) == list:
+            chat_rooms = []
+            chat_rooms.append(rooms)
+            return render(request, "index.html", {"rooms" : chat_rooms})
+            
+        return render(request, "index.html", {"rooms" : rooms})
+
     return render(request, "index.html")
 
 def register(request):
@@ -51,11 +64,10 @@ def login(request):
         if user is not None:
             auth_login(request, user)
             print("logged")
-            return render(request, "index.html", {'fname': username})
-            ...
+            return redirect("index")
         else:
             print("not logged")
-            return render(request, "index.html", {'fname': username})
+            return render(request, "login.html")
             ...
     else:
        return render(request, "login.html") 
@@ -63,3 +75,9 @@ def login(request):
 def log_out(request):
     logout(request)
     return redirect('index')
+
+def chats_list(request):
+    if request.method == "POST":
+        pass
+
+    return render(request, "chats_list.html") 

@@ -1,8 +1,9 @@
 {% include "messages_reader.html" %}
 
 {% if user.is_authenticated %}
-<h3>Hello {{fname}}!</h3>
-<h4>You're successfully logged in.</h4>
+{% for i in rooms %}
+<p> {{ i.chat_name }} </p>
+{% endfor %}
 <button type="button"><a href="/chats/logout">Log out</a></button>
 {% else %}
 <button type="button"><a href="/chats/register">Register</a></button>
