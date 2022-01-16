@@ -8,7 +8,7 @@
 
 3. As user, I want the login page to be simple an prety, so that I don't get overwhealmed whenever I'm in it
 
-4. As user, I want to be able to togle between light and dark mode, so that I can protect my eyes and because it's cooler
+4. As user, I want to be able to toggle between light and dark mode, so that I can protect my eyes and because it's cooler
 
 5. As user, I want to be able to see "click to open" list of my chats after log in, so that I can quickly start chatting
 
