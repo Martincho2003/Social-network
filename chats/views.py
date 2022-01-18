@@ -68,7 +68,6 @@ def login(request):
         else:
             print("not logged")
             return render(request, "login.html")
-            ...
     else:
        return render(request, "login.html") 
 
