@@ -2,7 +2,7 @@
 
 ## The user stories
 
-1. As user, I want to be able to sign up and have my own account, so that my chats are kept
+1. As user, I want to be able to sign up and have my own account, so that my chats are saved and kept in the database
 
 2. As user, I want to be able to sign in to my account, so that I can access my chats
 
