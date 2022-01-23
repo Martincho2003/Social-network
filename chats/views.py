@@ -5,6 +5,14 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout
 from chats.models import Chat
 
+# imports for react
+from rest_framework import viewsets
+from .serializers import ChatSerializer
+
+
+class ChatView(viewsets.ModelViewSet):
+    serializer_class = ChatSerializer
+    queryset = Chat.objects.all()
 
 def index(request):
     if not request.user.is_anonymous:
