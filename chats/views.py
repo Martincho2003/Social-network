@@ -3,16 +3,30 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout
-from chats.models import Chat
+from chats.models import Chat, ChatAdmin, Message
 
-# imports for react
 from rest_framework import viewsets
 from .serializers import ChatSerializer
+from .serializers import ChatSerializer
+from .serializers import MessageSerializer
+from .serializers import UserSerializer
 
 
 class ChatView(viewsets.ModelViewSet):
     serializer_class = ChatSerializer
     queryset = Chat.objects.all()
+
+class ChatAdminView(viewsets.ModelViewSet):
+    serializer_class = ChatSerializer
+    queryset = ChatAdmin.objects.all()
+
+class MessageView(viewsets.ModelViewSet):
+    serializer_class = MessageSerializer
+    queryset = Message.objects.all()
+
+class UserView(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
 
 def index(request):
     if not request.user.is_anonymous:
