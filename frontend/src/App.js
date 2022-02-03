@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> master
 import React, { Component } from "react";
 import axios from "axios";
 
@@ -60,6 +63,9 @@ class App extends Component {
 	}
 }
 
+<<<<<<< HEAD
+export default App;
+=======
 export default App;
 =======
 import logo from './logo.svg';
@@ -87,4 +93,5 @@ function App() {
 }
 
 export default App;
+>>>>>>> master
 >>>>>>> master

@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 <<<<<<< HEAD
 import 'bootstrap/dist/css/bootstrap.css';
 =======
+<<<<<<< HEAD
+import 'bootstrap/dist/css/bootstrap.css';
+=======
+>>>>>>> master
 >>>>>>> master
 import './index.css';
 import App from './App';
