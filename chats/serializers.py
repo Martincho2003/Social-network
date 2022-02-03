@@ -1,14 +1,11 @@
 from rest_framework import serializers
 from .models import Chat, ChatAdmin, Message
-<<<<<<< HEAD
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'password', 'username', 'email', 'first_name', 'last_name', 'is_active')
-=======
->>>>>>> master
 
 class ChatSerializer(serializers.ModelSerializer):
     class Meta:
