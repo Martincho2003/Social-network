@@ -1,8 +1,8 @@
 # We are A-Team
 
-This project is meant to be exercise in good programing practices.
-We are a team of two. The point is to learn to interact and create a
-supperior product.
+This project is meant to be exercise in good programming practices.
+We are a team of two people. The point is to learn to interact and create a
+superior product.
 
 
 ## The project
