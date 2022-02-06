@@ -5,9 +5,6 @@ class Chat(models.Model):
     chat_memebers_count = models.IntegerField(default=2)
     chat_owner = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
-    def _str_(self):
-        return self.chat_name
-
 class ChatAdmin(models.Model):
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
     admin_chat = models.ForeignKey('auth.User', on_delete=models.CASCADE)

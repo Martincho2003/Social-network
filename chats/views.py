@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout
 from chats.models import Chat, ChatAdmin, Message
 
+<<<<<<< HEAD
 from rest_framework import viewsets
 from .serializers import ChatSerializer
 from .serializers import ChatSerializer
@@ -15,6 +16,8 @@ from .serializers import UserSerializer
 class ChatView(viewsets.ModelViewSet):
     serializer_class = ChatSerializer
     queryset = Chat.objects.all()
+=======
+>>>>>>> parent of 514a1cc (setting up Django backend API)
 
 class ChatAdminView(viewsets.ModelViewSet):
     serializer_class = ChatSerializer
