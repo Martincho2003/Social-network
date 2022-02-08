@@ -4,10 +4,10 @@ from rest_framework import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r'chats', views.ChatView, 'chat')
-router.register(r'chatadmin', views.ChatAdminView, 'chatadmin')
-router.register(r'message', views.MessageView, 'message')
-router.register(r'user', views.UserView, 'user')
+router.register(r'chats', views.ChatView, 'chats')
+router.register(r'chatadmins', views.ChatAdminView, 'chatadmins')
+router.register(r'messages', views.MessageView, 'messages')
+router.register(r'users', views.UserView, 'users')
 
 urlpatterns = [
     path('', views.index, name='index'),
