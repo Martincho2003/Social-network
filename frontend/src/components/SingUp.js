@@ -52,7 +52,7 @@ class Login extends Component {
   }
 
 	createUser = async () => {
-		let res = await api.post('/', {first_name: this.state.firstName, last_name: this.state.secondName, email: this.state.email, password: this.state.password1, username: this.state.firstName, is_active: true })
+		//let res = await api.post('/', {first_name: this.state.firstName, last_name: this.state.secondName, email: this.state.email, password: this.state.password1, username: this.state.firstName, is_active: true })
     
     /*
     //if the backend says no render "Oops something went wrong" log in the form
@@ -63,8 +63,8 @@ class Login extends Component {
     }
     */
 
-		console.log(res);
-    this.setState({redirect: <Redirect to="/login" />});
+		//console.log(res);
+    this.setState({is_failed: <label className="red_label" >Oops something went wrong </label>});
 
 	}
 
