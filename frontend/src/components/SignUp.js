@@ -6,7 +6,7 @@ const api = axios.create({
 	baseURL: 'http://127.0.0.1:8000/chats/api/users/'
 })
 
-class Login extends Component {
+class SignUp extends Component {
 
 	constructor(props) {
     super(props);
@@ -110,4 +110,4 @@ class Login extends Component {
 	}
 }
 
-export default Login;
+export default SignUp;

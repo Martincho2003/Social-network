@@ -5,7 +5,7 @@ import './index.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import Login from "./components/Login";
-import SingUp from "./components/SingUp";
+import SignUp from "./components/SignUp";
 import Chats from "./components/Chats";
 
 const routes = (
@@ -13,8 +13,8 @@ const routes = (
     <Route path="/login">
       <Login />
     </Route>
-    <Route path="/singup">
-      <SingUp />
+    <Route path="/signup">
+      <SignUp />
     </Route>
     <Route path="/chats">
       <Chats />
