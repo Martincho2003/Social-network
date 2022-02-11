@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.core.validators import validate_email
 from django.contrib.auth import authenticate, login as auth_login, logout
 from chats.models import Chat, ChatAdmin, Message
+from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework import viewsets
 from .serializers import ChatSerializer, ChatAdminSerializer, MessageSerializer, UserSerializer
@@ -42,6 +43,7 @@ def index(request):
 
     return render(request, "index.html")
 
+@csrf_exempt
 def register(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -91,6 +93,7 @@ def register(request):
         #messages.success(request, "Your account has been created succesfully!")
         return JsonResponse({"status" : "successfull"})
 
+@csrf_exempt
 def login(request):
     if request.method == "POST":
         usrname = json.loads(request.body)["username"]
