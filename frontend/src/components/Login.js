@@ -3,7 +3,7 @@ import { Redirect, BrowserRouter, Route } from "react-router-dom";
 import axios from "axios";
 
 const api = axios.create({
-	baseURL: 'http://127.0.0.1:8000/chats/api/users/' // replace this with the addres of the django handler
+	baseURL: 'http://127.0.0.1:8000/chats/login' // replace this with the addres of the django handler
 })
 
 class Login extends Component {
@@ -39,7 +39,7 @@ class Login extends Component {
 	  }
 
 	  checkUser = async () => {
-		let res = await api.get('/', { email: this.state.email, password: this.state.password})
+		let res = await api.post('/', { email: this.state.email, password: this.state.password})
 		
 		/*
 		//if the backend says no render "Oops something went wrong" log in the form
@@ -62,8 +62,8 @@ class Login extends Component {
 						<h3>Sign In</h3>
 						{this.state.is_failed}
 						<div className="form-group">
-							<label>Email address</label>
-							<input type="email" className="form-control" placeholder="Enter email" />
+							<label>Username</label>
+							<input type="text" className="form-control" placeholder="Enter username" />
 						</div>
 						<div className="form-group">
 							<label>Password</label>

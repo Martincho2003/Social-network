@@ -3,7 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 
 const api = axios.create({
-	baseURL: 'http://127.0.0.1:8000/chats/api/users/'
+	baseURL: 'http://127.0.0.1:8000/chats/register'
 })
 
 class SignUp extends Component {
@@ -52,7 +52,7 @@ class SignUp extends Component {
   }
 
 	createUser = async () => {
-		//let res = await api.post('/', {first_name: this.state.firstName, last_name: this.state.secondName, email: this.state.email, password: this.state.password1, username: this.state.firstName, is_active: true })
+		let res = await api.post('/', {first_name: this.state.firstName, last_name: this.state.secondName, email: this.state.email, password: this.state.password1, username: this.state.firstName, is_active: true })
     
     /*
     //if the backend says no render "Oops something went wrong" log in the form
