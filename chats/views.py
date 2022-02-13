@@ -46,12 +46,12 @@ def index(request):
 @csrf_exempt
 def register(request):
     if request.method == "POST":
-        username = request.POST['username']
-        fname = request.POST['first_name']
-        lname = request.POST['last_name']
-        email = request.POST['email']
-        pass1 = request.POST['password1']
-        pass2 = request.POST['password2']
+        username = json.loads(request.body)["username"]
+        fname = json.loads(request.body)['first_name']
+        lname = json.loads(request.body)['last_name']
+        email = json.loads(request.body)['email']
+        pass1 = json.loads(request.body)['password1']
+        pass2 = json.loads(request.body)['password2']
 
         if User.objects.filter(username=username):
             #messages.error(request, "Username already exist! Please try other username.")
@@ -79,7 +79,7 @@ def register(request):
             return JsonResponse({"status" : "unsuccessfull",
                                 "error": "Passwords didn't matched!"})
 
-        passReg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$"
+        passReg = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"
         pat = re.compile(passReg)
         if not re.search(pat, pass1):
             return JsonResponse({"status" : "unsuccessfull",
