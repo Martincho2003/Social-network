@@ -7,6 +7,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Chats from "./components/Chats";
+import SuccessSignUp from "./components/SuccessSignUp";
 
 const routes = (
   <BrowserRouter>
@@ -18,6 +19,9 @@ const routes = (
     </Route>
     <Route path="/chats">
       <Chats />
+    </Route>
+    <Route path="/success">
+      <SuccessSignUp />
     </Route>
   </BrowserRouter>
 );
