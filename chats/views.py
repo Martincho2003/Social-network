@@ -55,35 +55,35 @@ def register(request):
 
         if User.objects.filter(username=username):
             #messages.error(request, "Username already exist! Please try other username.")
-            return JsonResponse({"status" : "unsuccessfull",
+            return JsonResponse({"status" : "unsuccessful",
                                 "error": "Username already exist! Please try other username."})
     
         if User.objects.filter(email=email).exists():
             #messages.error(request, "Email is already registered!")
-            return JsonResponse({"status" : "unsuccessfull",
+            return JsonResponse({"status" : "unsuccessful",
                                 "error": "Email is already registered!"})
         
         try:
             validate_email(email)
         except:
-            return JsonResponse({"status" : "unsuccessfull",
+            return JsonResponse({"status" : "unsuccessful",
                                 "error": "Please enter valid email!"})
         
         if len(username) > 20:
             #messages.error(request, "Username must be under 20 characters!")
-            return JsonResponse({"status" : "unsuccessfull",
+            return JsonResponse({"status" : "unsuccessful",
                                 "error": "Username must be under 20 characters!"})
         
         if pass1 != pass2:
             #messages.error(request, "Passwords didn't matched!")
-            return JsonResponse({"status" : "unsuccessfull",
+            return JsonResponse({"status" : "unsuccessful",
                                 "error": "Passwords didn't matched!"})
 
         passReg = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$"
         pat = re.compile(passReg)
         if not re.search(pat, pass1):
-            return JsonResponse({"status" : "unsuccessfull",
-                                "error": "Your password must contain at least one small letter, one capital letter, one number, one special symbol and must be at least 8 symbols long."})
+            return JsonResponse({"status" : "unsuccessful",
+                                "error": "Your password must contain at least one small letter, one capital letter, one number and must be at least 8 symbols long."})
 
         myusr = User.objects.create_user(username, email, pass1)
         myusr.first_name = fname
@@ -91,7 +91,7 @@ def register(request):
         myusr.is_active = True
         myusr.save()
         #messages.success(request, "Your account has been created succesfully!")
-        return JsonResponse({"status" : "successfull"})
+        return JsonResponse({"status" : "successful"})
 
 @csrf_exempt
 def login(request):
@@ -105,7 +105,7 @@ def login(request):
             auth_login(request, user)
             print("logged")
             current_user = request.user
-            return JsonResponse({'status':'successfull',
+            return JsonResponse({'status':'successful',
                                     "id" : current_user.id,
                                     "password": current_user.password,
                                     "username": current_user.username,
@@ -115,7 +115,7 @@ def login(request):
                                     "is_active": current_user.is_active})
         else:
             print("not logged")
-            return JsonResponse({"status" : "unsuccessfull"})
+            return JsonResponse({"status" : "unsuccessful"})
 
 def log_out(request):
     logout(request)
