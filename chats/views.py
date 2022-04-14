@@ -83,15 +83,14 @@ def register(request):
         pat = re.compile(passReg)
         if not re.search(pat, pass1):
             return JsonResponse({"status" : "unsuccessful",
-                                "error": "Your password must contain at least one small letter, one capital letter, one number, one special symbol and must be at least 8 symbols long."})
-
+                                "error": "Your password must contain at least one small letter, one capital letter, one number and must be at least 8 symbols long."})
         myusr = User.objects.create_user(username, email, pass1)
         myusr.first_name = fname
         myusr.last_name = lname
         myusr.is_active = True
         myusr.save()
         #messages.success(request, "Your account has been created succesfully!")
-        return JsonResponse({"status" : "successfull"})
+        return JsonResponse({"status" : "successful"})
 
 @csrf_exempt
 def login(request):
