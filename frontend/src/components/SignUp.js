@@ -61,7 +61,7 @@ class SignUp extends Component {
     
     //if the backend says no render "Oops something went wrong" log in the form
     if (res.data.status == "unsuccessful" ){
-      this.setState({is_failed: <label className="red_label" >Oops something went wrong </label>});
+      this.setState({is_failed: <label className="red_label" >{res.data.error}</label>});
     }else{
       this.setState({redirect: <Redirect to="/success" />});
     }
