@@ -84,7 +84,6 @@ def register(request):
         if not re.search(pat, pass1):
             return JsonResponse({"status" : "unsuccessful",
                                 "error": "Your password must contain at least one small letter, one capital letter, one number and must be at least 8 symbols long."})
-
         myusr = User.objects.create_user(username, email, pass1)
         myusr.first_name = fname
         myusr.last_name = lname
