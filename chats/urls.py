@@ -14,5 +14,10 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('register', views.register, name='register'),
     path('logout', views.log_out, name='logout'),
+    path('chats-list', views.chats_list),
+    path('create-chat', views.create_chat),
+    path('search-user', views.search_users),
+    path('send-message', views.send_message),
+    path('load-messages', views.load_messages),
     path('api/', include(router.urls)),
 ]

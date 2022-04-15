@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 
 class Chat(models.Model):
@@ -14,6 +15,10 @@ class ChatAdmin(models.Model):
 
 class Message(models.Model):
     message_text = models.CharField(max_length=280)
-    message_time = models.DateTimeField()
+    message_time = models.DateTimeField(default=datetime.now)
     sender = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
+
+class ChatMember(models.Model):
+    chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
+    member = models.ForeignKey('auth.User', on_delete=models.CASCADE)
