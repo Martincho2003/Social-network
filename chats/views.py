@@ -134,7 +134,13 @@ def chats_list(request):
         chats = Chat.objects.filter(chat_owner = request.user.id).values()
         chat_resp = {"chats": []}
         for chat in chats:
-            chat_resp["chats"].append({"chat_name": chat["chat_name"], "chat_owner_id": chat["chat_owner_id"]})
+            chat_members = ChatMember.objects.filter(chat=chat["id"]).values()
+            members = []
+            for member in chat_members:
+                members.append({"username": User.objects.get(id=member["member_id"]).username})
+            chat_resp["chats"].append({"chat_name": chat["chat_name"], 
+                                        "chat_owner_id": chat["chat_owner_id"],
+                                        "chat_members": members})
     
         return JsonResponse(chat_resp)
 
@@ -144,7 +150,7 @@ def search_users(request):
         searched_string = json.loads(request.body)["string"]
         users_resp = {"users": []}
         for user in all_users:
-            if user["username"].lower().find(searched_string) != -1:
+            if user["username"].lower().find(searched_string.lower()) != -1:
                 users_resp["users"].append({"username": user["username"]})
         return JsonResponse(users_resp)
 
