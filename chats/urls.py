@@ -19,5 +19,6 @@ urlpatterns = [
     path('search-user', views.search_users),
     path('send-message', views.send_message),
     path('load-messages', views.load_messages),
+    path('add-user-to-chat', views.add_user_to_chat),
     path('api/', include(router.urls)),
 ]

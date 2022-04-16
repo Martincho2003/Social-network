@@ -173,3 +173,15 @@ def load_messages(request):
                                                 "sender": sender.username})
 
         return JsonResponse(messages_resp)
+
+@csrf_exempt
+def add_user_to_chat(request):
+     if request.method == "POST":
+        data = json.loads(request.body)
+        chat_name = data["chat_name"]
+        chat_ownder_id = data["chat_owner_id"]
+        chat = Chat.objects.get(chat_name=chat_name, chat_owner=chat_ownder_id)
+        new_username = data["username"]
+        ChatMember.objects.create(chat=chat, member=User.objects.get(username=new_username)).save()
+        
+        return JsonResponse({"status": "successful"})
