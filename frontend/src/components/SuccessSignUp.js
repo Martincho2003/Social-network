@@ -5,7 +5,7 @@ const SuccessSignUp = () => {
     const history = useHistory();
 
     const handleClick = () => {
-        history.push("/login");
+        history.push("/signin");
     }
 
     return (

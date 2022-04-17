@@ -4,24 +4,28 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import Login from "./components/Login";
+import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Chats from "./components/Chats";
 import SuccessSignUp from "./components/SuccessSignUp";
+import DirectMessaging from './components/DirectMessaging';
 
 const routes = (
   <BrowserRouter>
-    <Route path="/login">
-      <Login />
+    <Route path="/signin">
+      <SignIn />
     </Route>
     <Route path="/signup">
       <SignUp />
     </Route>
-    <Route path="/chats">
+    <Route path="/bad_chats">
       <Chats />
     </Route>
     <Route path="/success">
       <SuccessSignUp />
+    </Route>
+    <Route path="/chats">
+      <DirectMessaging />
     </Route>
   </BrowserRouter>
 );

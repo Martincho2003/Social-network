@@ -55,8 +55,11 @@ class Chats extends Component {
 						<button onClick={() => this.deleteChat(chat.id)}>x</button>
 					</h2>
 				)}
+
+				
 				
 			</div>
+			
 		);
 	}
 }
