@@ -176,7 +176,8 @@ def load_messages(request):
         for message in messages:
             sender = User.objects.get(id=message["sender_id"])
             messages_resp["messages"].append({"message_text": message["message_text"],
-                                                "sender": sender.username})
+                                                "sender": sender.username,
+                                                "message_time": message["message_time"]})
 
         return JsonResponse(messages_resp)
 
