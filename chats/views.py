@@ -6,7 +6,7 @@ import json
 from django.contrib.auth.models import User
 from django.core.validators import validate_email
 from django.contrib.auth import authenticate, login as auth_login, logout
-from chats.models import Chat, ChatAdmin, Message
+from chats.models import Chat, ChatAdmin, ChatMember, Message
 from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework import viewsets
@@ -97,12 +97,9 @@ def login(request):
     if request.method == "POST":
         usrname = json.loads(request.body)["username"]
         password = json.loads(request.body)['password']
-        print(password)
         user = authenticate(request, username=usrname, password=password)
-        print(user)
         if user is not None:
             auth_login(request, user)
-            print("logged")
             current_user = request.user
             return JsonResponse({'status':'successful',
                                     "id" : current_user.id,
@@ -113,15 +110,85 @@ def login(request):
                                     "last_name": current_user.last_name,
                                     "is_active": current_user.is_active})
         else:
-            print("not logged")
             return JsonResponse({"status" : "unsuccessful"})
 
 def log_out(request):
     logout(request)
     return redirect('index')
 
-def chats_list(request):
+@csrf_exempt
+def create_chat(request):
     if request.method == "POST":
-        pass
+        data = json.loads(request.body)
+        member_count = data["members_count"]
+        if Chat.objects.filter(chat_name=data["chat_name"], chat_owner=request.user).count() == 0:
+            Chat.objects.create(chat_name=data["chat_name"], chat_memebers_count=member_count, chat_owner=request.user).save()
+            new_chat = Chat.objects.get(chat_name=data["chat_name"], chat_owner=request.user.id)
+            for member in data["usernames"]:
+                ChatMember.objects.create(chat=new_chat, member=User.objects.get(username=member["username"])).save()
+            return JsonResponse({"status": "successful"})
+        return JsonResponse({"status": "unsuccessful", "error": "Chat already exists!"})
+        
+def chats_list(request):
+    if request.method == "GET":
+        chats = Chat.objects.filter(chat_owner = request.user.id).values()
+        chat_resp = {"chats": []}
+        for chat in chats:
+            chat_members = ChatMember.objects.filter(chat=chat["id"]).values()
+            members = []
+            for member in chat_members:
+                members.append({"username": User.objects.get(id=member["member_id"]).username})
+            chat_resp["chats"].append({"chat_name": chat["chat_name"], 
+                                        "chat_owner_id": chat["chat_owner_id"],
+                                        "chat_members": members})
+    
+        return JsonResponse(chat_resp)
 
-    return render(request, "chats_list.html") 
+def search_users(request):
+    if request.method == "GET":
+        all_users = User.objects.all().values()
+        searched_string = json.loads(request.body)["string"]
+        users_resp = {"users": []}
+        for user in all_users:
+            if user["username"].lower().find(searched_string.lower()) != -1:
+                users_resp["users"].append({"username": user["username"]})
+        return JsonResponse(users_resp)
+
+@csrf_exempt
+def send_message(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        chat_name = data["chat_name"]
+        chat_ownder_id = data["chat_owner_id"]
+        chat = Chat.objects.get(chat_name=chat_name, chat_owner=chat_ownder_id)
+        text = data["message_text"]
+        Message.objects.create(message_text=text, sender=request.user, chat=chat).save()
+        return JsonResponse({"status": "successful"})
+
+def load_messages(request):
+    if request.method == "GET":
+        data = json.loads(request.body)
+        chat_name = data["chat_name"]
+        chat_ownder_id = data["chat_owner_id"]
+        chat = Chat.objects.get(chat_name=chat_name, chat_owner=chat_ownder_id)
+        messages_resp = {"messages": []}
+        messages = Message.objects.filter(chat=chat.id).values()
+        for message in messages:
+            sender = User.objects.get(id=message["sender_id"])
+            messages_resp["messages"].append({"message_text": message["message_text"],
+                                                "sender": sender.username,
+                                                "message_time": message["message_time"]})
+
+        return JsonResponse(messages_resp)
+
+@csrf_exempt
+def add_user_to_chat(request):
+     if request.method == "POST":
+        data = json.loads(request.body)
+        chat_name = data["chat_name"]
+        chat_ownder_id = data["chat_owner_id"]
+        chat = Chat.objects.get(chat_name=chat_name, chat_owner=chat_ownder_id)
+        new_username = data["username"]
+        ChatMember.objects.create(chat=chat, member=User.objects.get(username=new_username)).save()
+        
+        return JsonResponse({"status": "successful"})
