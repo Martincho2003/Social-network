@@ -100,6 +100,7 @@ def login(request):
         user = authenticate(request, username=usrname, password=password)
         if user is not None:
             auth_login(request, user)
+            print(request.user)
             current_user = request.user
             return JsonResponse({'status':'successful',
                                     "id" : current_user.id,
@@ -128,10 +129,12 @@ def create_chat(request):
                 ChatMember.objects.create(chat=new_chat, member=User.objects.get(username=member["username"])).save()
             return JsonResponse({"status": "successful"})
         return JsonResponse({"status": "unsuccessful", "error": "Chat already exists!"})
-        
+
 def chats_list(request):
     if request.method == "GET":
-        chats = Chat.objects.filter(chat_owner = request.user.id).values()
+        print(request.GET.get('username', ''))
+        user = User.objects.get(username=request.GET.get('username', ''))
+        chats = Chat.objects.filter(chat_owner = user.id).values()
         chat_resp = {"chats": []}
         for chat in chats:
             chat_members = ChatMember.objects.filter(chat=chat["id"]).values()
@@ -147,7 +150,7 @@ def chats_list(request):
 def search_users(request):
     if request.method == "GET":
         all_users = User.objects.all().values()
-        searched_string = json.loads(request.body)["string"]
+        searched_string = request.GET.get("string", '')
         users_resp = {"users": []}
         for user in all_users:
             if user["username"].lower().find(searched_string.lower()) != -1:
@@ -167,9 +170,8 @@ def send_message(request):
 
 def load_messages(request):
     if request.method == "GET":
-        data = json.loads(request.body)
-        chat_name = data["chat_name"]
-        chat_ownder_id = data["chat_owner_id"]
+        chat_name = request.GET.get("chat_name", '')
+        chat_ownder_id = request.GET.get("chat_owner_id", '')
         chat = Chat.objects.get(chat_name=chat_name, chat_owner=chat_ownder_id)
         messages_resp = {"messages": []}
         messages = Message.objects.filter(chat=chat.id).values()

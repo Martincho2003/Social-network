@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, BrowserRouter, Route } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 
 const api = axios.create({
@@ -26,14 +26,13 @@ class Login extends Component {
 
 	  handleUsername(event) {
 		this.setState({username: event.target.value});
+		localStorage.setItem('username', event.target.value);
 	  }
 	  handlePassword(event) {
 		this.setState({password: event.target.value});
 	  }
 	
 	  handleSubmit(event) {
-		//console.log(this.state);
-	
 		this.checkUser();
 		event.preventDefault();
 	  }
@@ -47,7 +46,7 @@ class Login extends Component {
 		if (res.data.status == "unsuccessful"){
 			this.setState({is_failed: <label className="red_label" >Oops something went wrong </label>});
 		}else{
-			this.setState({redirect: <Redirect to="/chats" />});
+			this.setState({redirect: <Navigate to="/chats" />});
 		}
 	}
 

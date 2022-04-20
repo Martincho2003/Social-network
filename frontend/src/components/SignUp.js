@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 
 const api = axios.create({
@@ -63,7 +63,7 @@ class SignUp extends Component {
     if (res.data.status == "unsuccessful" ){
       this.setState({is_failed: <label className="red_label" >{res.data.error}</label>});
     }else{
-      this.setState({redirect: <Redirect to="/success" />});
+      this.setState({redirect: <Navigate to="/success" />});
     }
 	}
 
